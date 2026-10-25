@@ -1,0 +1,39 @@
+{
+  "id": "<short_id, lowercase, e.g. acme>",
+  "name": "<registered name, exactly as Companies House shows it>",
+  "company_number": "<8 characters>",
+  "company_number_source": "Companies House, confirmed by the director YYYY-MM-DD",
+  "incorporated": "YYYY-MM-DD",
+  "year_end_month": 0,
+  "year_end_day": 0,
+  "accounts_basis": "FRS 105 micro-entity | FRS 102 1A small | dormant",
+  "vat_registered": false,
+  "vat_number_last4": null,
+  "payroll": false,
+  "cic": false,
+  "sic_codes": [],
+  "registered_office": "<from Companies House>",
+  "website": null,
+  "directors": [{"name": "<from Companies House>", "is_user": false}],
+  "connectors": {
+    "ledger": "none | xero | freeagent | quickbooks | other",
+    "bank": {"<account_key>": "api | platform_feed | statements"},
+    "payments": {"<platform_key>": "api | statements"},
+    "filing": "tinytax | other | not_chosen"
+  },
+  "bank_accounts": {
+    "<account_key>": {
+      "provider": "<bank or platform product>",
+      "type": "business_current | credit_card | money_platform",
+      "currency": "GBP",
+      "guide": "engine/reference/banks/<file>.md",
+      "export_url": null,
+      "statement_format": "CSV",
+      "ledger_code": "<chart code for this account, e.g. 090>"
+    }
+  },
+  "discovered": {
+    "<field>": {"value": "<…>", "source": "<URL or document>", "checked": "YYYY-MM-DD"}
+  },
+  "notes": ""
+}

@@ -1,0 +1,5 @@
+# Your company's data stays on your machine: never commit it to this kit's repository.
+books/
+memory.md
+DEVLOG.md
+__pycache__/
