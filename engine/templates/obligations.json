@@ -1,0 +1,12 @@
+[
+  {
+    "type": "accounts_filing | ct600 | ct_payment | confirmation_statement | vat_return | other",
+    "description": "<what is due, in plain words, e.g. Annual accounts to Companies House for the year to 31 Jan 2026>",
+    "period_end": "YYYY-MM-DD",
+    "due_date": "YYYY-MM-DD",
+    "status": "open | submitted | paid | not_required",
+    "source": "ch | derived | director",
+    "reference": null,
+    "notes": ""
+  }
+]

@@ -210,7 +210,7 @@ def draft(entity_id, fy):
     dla = ("835", opening.get("835", Decimal(0)), bal.get("835", Decimal(0)))
     md = one_pager(b.entity(entity_id), inputs, financials, tax, period, now, prior, ppa, dla, lines, names, cls,
                    warnings, extra["auto"])
-    return {"financials": financials, "tax": tax}, period, md, problems
+    return {"financials": financials, "tax": tax}, period, md, problems, warnings
 
 
 def sense_checks(bal, opening, cls, names, turnover, pl, result):
@@ -323,7 +323,7 @@ def main():
     if len(sys.argv) < 3:
         sys.exit(__doc__)
     entity_id, fy = sys.argv[1], sys.argv[2]
-    accounts, period, md, problems = draft(entity_id, fy)
+    accounts, period, md, problems, _ = draft(entity_id, fy)
     print(md)
     print(json.dumps(accounts["financials"], indent=1))
     for p in problems:
@@ -346,6 +346,9 @@ def main():
         (out / "period.json").write_text(json.dumps(period, indent=2) + "\n")
         (out / "draft_accounts.md").write_text(md)
         print(f"written {out}/accounts.json, period.json, draft_accounts.md")
+        print(f"Tell the director: your draft accounts are in {(out / 'draft_accounts.md').resolve()} "
+              f"(open it in VS Code and press Ctrl+Shift+V, Cmd+Shift+V on a Mac, to read it formatted). "
+              f"For charts, run build_dashboard.py.")
 
 
 if __name__ == "__main__":

@@ -19,6 +19,7 @@ This file is Layer 0: identity and routing only. **Read `NON-NEGOTIABLES.md` bef
 | File accounts + CT600 (dry run, approval, submit, proof) | `engine/stages/60_filing/CONTEXT.md` |
 | How the filing software works | `engine/reference/filing/tinytax.md` |
 | Check the books | `python3 engine/scripts/validate.py <entity>` |
+| "Show me my accounts", a visual overview | `python3 engine/scripts/build_dashboard.py <entity>`, then give the user the file path it prints |
 
 ## Cross-stage flow
 
@@ -40,7 +41,7 @@ A company's year runs `00_setup` (once) → bank lines each month (`engine/refer
 
 ## Skills and tools
 
-Stages are markdown contracts any agent can follow (`skills.md` lists what to say for each). Scripts: `python3 engine/scripts/books_io.py` (write bank lines; log external writes) `python3 engine/scripts/validate.py` (check bank lines) `python3 engine/scripts/fetch_prior_year.py` (last year's filed accounts from Companies House) `python3 engine/scripts/build_tb.py` (build and check the trial balance) and `python3 engine/scripts/build_accounts.py` (draft the accounts, tax and the director's one-pager).
+Stages are markdown contracts any agent can follow (`skills.md` lists what to say for each). Scripts: `python3 engine/scripts/books_io.py` (write bank lines; log external writes) `python3 engine/scripts/validate.py` (check bank lines) `python3 engine/scripts/fetch_prior_year.py` (last year's filed accounts from Companies House) `python3 engine/scripts/build_tb.py` (build and check the trial balance) `python3 engine/scripts/build_accounts.py` (draft the accounts, tax and the director's one-pager) and `python3 engine/scripts/build_dashboard.py` (a one-file dashboard the director opens in their browser). **Whenever a script writes something the user should read, give them its full file path and how to open it.**
 
 ## Memory
 

@@ -79,6 +79,6 @@ Then add the `accounts` block to `inputs.json` (average employees including dire
 
 - `accounts.json`: profit and loss, the micro-entity balance sheet with last year's column, and the corporation tax computation, in the shape the filing software takes.
 - `period.json` with the headline figures and `"match_status": "draft"`. Decisions you record in its `notes` are kept on every rerun.
-- `draft_accounts.md`: the one-page draft for the director (result, balance sheet, proof that opening reserves + result = closing reserves, director's loan, points to decide, tax). Show it to them and explain the "why" behind the result in your own words alongside it.
+- `draft_accounts.md`: the one-page draft for the director (result, balance sheet, proof that opening reserves + result = closing reserves, director's loan, points to decide, tax). Give the director the full path the script prints and how to open it, show it to them, and explain the "why" behind the result in your own words alongside it. Then run `python3 engine/scripts/build_dashboard.py <id>` and give them that path too: `books/<id>/dashboard.html` shows the year, money in and out by month, what's due and what's waiting, in their browser. Rebuild it whenever the books change.
 
 If tax is due, the script says so and stops: add the tax charge as an adjustment (debit the tax account, credit 830), rerun `build_tb.py --write`, then rerun it. Fixed assets (capital allowances) and periods longer than 12 months aren't covered yet: the script stops, and the director needs an accountant for that year.

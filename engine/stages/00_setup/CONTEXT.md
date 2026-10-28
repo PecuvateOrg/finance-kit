@@ -83,7 +83,7 @@ That's the whole intake. Anything else is asked later, at the step that needs it
 ## Step 5 — Write the books
 
 - `books/<id>/entity.json` from `engine/templates/entity.json`: confirmed facts, connectors, and `discovered` with sources.
-- `books/<id>/obligations.json`: Companies House dates (`source: ch`) plus derived HMRC dates (`source: derived`).
+- `books/<id>/obligations.json`, a list shaped like `engine/templates/obligations.json`: Companies House dates (`source: ch`) plus derived HMRC dates (`source: derived`). Mark one `submitted`, `paid` or `not_required` when it's done (a nil tax bill is `not_required`), so it drops off the dashboard.
 - `books/<id>/status.json`: summary plus *waiting* items (`on`: the user or the agent), each with a `link` where there's a page to open.
 - `books/<id>/gotchas.md`: anything unusual (charges, overdue filings, a setup this kit doesn't cover).
 - Check each JSON file parses. `validate.py` checks bank lines, so run it after Step 6.
