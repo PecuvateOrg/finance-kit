@@ -220,11 +220,13 @@ def log_write(entity_id, operation, payload, external_id=None, ok=True, error=No
 
 
 if __name__ == "__main__":
-    # python3 engine/scripts/books_io.py append <entity> <account> <rows.json>
+    # python3 engine/scripts/books_io.py append <entity> <account> <rows.json|rows.csv>   (CSV: the bank-line columns)
     #   ... append <entity> <account> <rows.json>
     #   ... log <entity> <operation> <payload.json> [external_id] [--error "message"]   (hand-made writes too)
     if len(sys.argv) == 5 and sys.argv[1] == "append":
-        added, skipped = append_lines(sys.argv[2], sys.argv[3], json.loads(Path(sys.argv[4]).read_text()))
+        src = Path(sys.argv[4])
+        rows = _read_csv(src) if src.suffix.lower() == ".csv" else json.loads(src.read_text())
+        added, skipped = append_lines(sys.argv[2], sys.argv[3], rows)
         print(f"added {added}, already stored {skipped}")
     elif len(sys.argv) >= 5 and sys.argv[1] == "log":
         err = sys.argv[sys.argv.index("--error") + 1] if "--error" in sys.argv else None
@@ -232,5 +234,5 @@ if __name__ == "__main__":
         r = log_write(sys.argv[2], sys.argv[3], json.loads(Path(sys.argv[4]).read_text()), ext, ok=err is None, error=err)
         print(f"logged {r['operation']} {r['id']}")
     else:
-        sys.exit("usage: books_io.py append <entity> <account> <rows.json>\n"
+        sys.exit("usage: books_io.py append <entity> <account> <rows.json|rows.csv>\n"
                  "       books_io.py log <entity> <operation> <payload.json> [external_id] [--error MSG]")

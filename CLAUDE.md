@@ -40,7 +40,7 @@ A company's year runs `00_setup` (once) → bank lines each month (`engine/refer
 
 ## Skills and tools
 
-Stages are markdown contracts any agent can follow (`skills.md` lists what to say for each). Scripts: `python3 engine/scripts/books_io.py` (write bank lines; log external writes) `python3 engine/scripts/validate.py` (check bank lines) and `python3 engine/scripts/build_tb.py` (build and check the trial balance).
+Stages are markdown contracts any agent can follow (`skills.md` lists what to say for each). Scripts: `python3 engine/scripts/books_io.py` (write bank lines; log external writes) `python3 engine/scripts/validate.py` (check bank lines) `python3 engine/scripts/fetch_prior_year.py` (last year's filed accounts from Companies House) `python3 engine/scripts/build_tb.py` (build and check the trial balance) and `python3 engine/scripts/build_accounts.py` (draft the accounts, tax and the director's one-pager).
 
 ## Memory
 

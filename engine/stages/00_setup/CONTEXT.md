@@ -43,6 +43,7 @@ From **Companies House** (`/company/<number>` and its filing history; API or pub
 | **Parent company** (a PSC that is itself a company) | PSC list | record it in `entity.json` and `gotchas.md`: the company may be in a group, and group size can rule out micro-entity accounts. Check the parent's own filings |
 | Former names | profile | trading names to search for on the web |
 | Last accounts: made-up date and type (micro, dormant, small) | filing history | `accounts_basis`; whether there's history to bring in |
+| Share capital | statement of capital in the incorporation document or the latest confirmation statement "with updates" (filing history, PDF) | `share_capital` with its source; `fetch_prior_year.py` needs it, because micro accounts tag only total equity |
 | **Last filed accounts document** | filing history → view PDF / document API | prior-year figures, opening balance sheet, average employees (payroll hint), accountant's name if stated. The public "View PDF" link redirects to a URL that expires in about 60 seconds: fetch it with a shell (`curl -L`) or the document API. If neither works, don't ask for it at setup; ask for the PDF only when the year-end or rebuild stage needs prior figures |
 | Charges (secured loans) | charges list | gotchas; loan to account for |
 
@@ -85,7 +86,7 @@ That's the whole intake. Anything else is asked later, at the step that needs it
 - `books/<id>/obligations.json`: Companies House dates (`source: ch`) plus derived HMRC dates (`source: derived`).
 - `books/<id>/status.json`: summary plus *waiting* items (`on`: the user or the agent), each with a `link` where there's a page to open.
 - `books/<id>/gotchas.md`: anything unusual (charges, overdue filings, a setup this kit doesn't cover).
-- Run `engine/scripts/validate.py <id>`.
+- Check each JSON file parses. `validate.py` checks bank lines, so run it after Step 6.
 
 ## Step 6 — First data in, by the easiest route per account
 

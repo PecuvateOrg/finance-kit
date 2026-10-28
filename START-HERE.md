@@ -1,17 +1,14 @@
 # Start here
 
+> **AI agent reading this:** this page is for the person. Your instructions start in `CLAUDE.md` (or `AGENTS.md`).
+
 This kit lets an AI agent on **your own computer** keep your company's books, prepare your year-end accounts and corporation tax return, and file them once you approve.
 
 ## One-time setup (about 15 minutes)
 
-1. **Install VS Code** (free) from https://code.visualstudio.com and open it.
-2. **Choose an AI agent and sign up for it.** Any of these works:
-   - **Claude Code**: an Anthropic account (claude.ai), with a Pro or Max plan or API credit
-   - **Codex**: an OpenAI account (ChatGPT Plus or above)
-   - **Gemini Code Assist**: a Google account
-3. **Install its VS Code extension:** in VS Code open **Extensions** (the four-squares icon on the left), search for the agent's name, click **Install**, and sign in when it asks.
-4. **Make an empty folder** for your company's books (for example `Documents/my-company-books`) and open it in VS Code (**File → Open Folder**).
-5. **Open the agent's chat panel** and paste:
+1. **Get your agent ready:** follow the step-by-step guide at **https://pecuvate.com/kits/** (VS Code, Git, an AI agent and its extension, an empty folder). It's the same for every kit listed there.
+2. **This kit also needs Python 3:** on Windows install it from https://www.python.org/downloads/ and tick "Add python.exe to PATH"; on a Mac it comes with Git's command line tools. Your agent can check it's there.
+3. **With your empty folder open in VS Code, open the agent's chat panel** and paste (the kit's page, https://pecuvate.com/kits/finance/, fills in your company name and copies it for you):
 
    > Please clone https://github.com/PecuvateOrg/finance-kit into this folder, read its instructions, and set me up. My company is called `<your company name>`.
 

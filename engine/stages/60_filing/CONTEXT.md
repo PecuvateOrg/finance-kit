@@ -29,11 +29,11 @@ Test the key first with a read-only call (`GET /account`). A 403 can mean bot pr
 
 ## 2. Build both requests — agent
 
-From `period.json` and the trial balance, build the accounts request and the CT600 request (field shapes in `engine/reference/filing/tinytax.md`). Keep a copy of each in `books/<id>/filed/<FY>/tinytax/` with every credential replaced by a marker such as `<secret:CH_AUTH_CODE>`. Never store the real value.
+Take the `financials` block from `accounts.json` exactly as `build_accounts.py` wrote it (never retype a figure), and build the accounts request and the CT600 request around it (field shapes in `engine/reference/filing/tinytax.md`). Keep a copy of each in `books/<id>/filed/<FY>/tinytax/` with every credential replaced by a marker such as `<secret:CH_AUTH_CODE>`. Never store the real value.
 
 ## 3. Live dry run — agent
 
-Send both with `dry_run: true`. Nothing is filed and nothing is charged. Check what comes back against the draft: company name, period, accounts regime (micro), taxable profit, corporation tax and losses carried forward. **Any difference stops the process** until it's explained.
+Send both with `dry_run: true`. Nothing is filed and nothing is charged. Check what comes back against the draft: company name, period, accounts regime (micro), taxable profit, corporation tax and losses carried forward. The CT600 works in whole pounds, so compare its figures with `accounts.json` → `tax` rounded to the pound (a draft loss of £349.52 comes back as 350). **Any other difference stops the process** until it's explained.
 
 ## 4. Approval — director
 

@@ -4,6 +4,7 @@
   "company_number": "<8 characters>",
   "company_number_source": "Companies House, confirmed by the director YYYY-MM-DD",
   "incorporated": "YYYY-MM-DD",
+  "share_capital": {"amount": null, "source": "<statement of capital: incorporation or latest confirmation statement with updates, with date>"},
   "year_end_month": 0,
   "year_end_day": 0,
   "accounts_basis": "FRS 105 micro-entity | FRS 102 1A small | dormant",

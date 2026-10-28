@@ -13,7 +13,8 @@ engine/                           shipped with the kit; replaced on upgrade; nev
   reference/filing/               how the filing software works (TinyTax)
   templates/                      blank entity.json, account_map.json (chart of accounts)
   scripts/                        books_io.py (writes lines safely), validate.py (checks bank-line files),
-                                  build_tb.py (builds and checks the trial balance)
+                                  build_tb.py (builds and checks the trial balance),
+                                  build_accounts.py (drafts the accounts and tax from the trial balance)
 
 books/                            YOUR data: private, never shipped
   <entity>/entity.json            company facts, connectors, what was discovered and from where
