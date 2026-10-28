@@ -30,6 +30,9 @@ def chart_codes(entity_id):
 def validate_account(entity_id, acc_dir, ye):
     problems, seen, chain = [], {}, []
     codes = chart_codes(entity_id)
+    if codes is None:
+        problems.append("no chart of accounts (accounts/account_map.json): set it up first (50_year_end step 2), "
+                        "then code every line against it")
     for f in sorted(acc_dir.glob("FY*.csv")):
         with f.open(newline="") as fh:
             r = csv.DictReader(fh)
@@ -41,9 +44,7 @@ def validate_account(entity_id, acc_dir, ye):
             where = f"{f.name}:{i}"
             problems += [f"{where} {e}" for e in b.check_row(row)]
             if row["include_status"] == "included":
-                if codes is None:
-                    problems.append(f"{where} no chart of accounts (accounts/account_map.json) to code against")
-                elif row["account_code"] not in codes:
+                if codes is not None and row["account_code"] not in codes:
                     problems.append(f"{where} account_code {row['account_code']!r} is not in the chart of accounts")
             k = row["source_line_key"]
             if k in seen:

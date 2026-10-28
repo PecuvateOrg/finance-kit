@@ -3,7 +3,7 @@
 **Goal:** go from "here's my company" to a working `books/<entity>/` with the deadlines known and the first data in, while **asking the user as little as possible.** Everything findable in public sources is found by the agent, shown back once, and confirmed in one step.
 
 **Trigger:** the user says "set me up", names a company, or there's no `books/` entity yet.
-**Done means:** `entity.json`, `obligations.json`, `status.json` and `gotchas.md` exist for the company, each JSON file parses and `entity.json` has every key in `engine/templates/entity.json`; any bank-line files pass `engine/scripts/validate.py` (it checks bank lines only, so don't report the other files as validated); the user has seen a one-screen summary; the next step (first data in) has either started or is listed under *waiting on you*.
+**Done means:** `entity.json`, `obligations.json`, `status.json` and `gotchas.md` exist for the company, each JSON file parses and `entity.json` has every key in `engine/templates/entity.json` (start from the template and merge in anything the user already supplied; a fact you couldn't find stays `null` with the question listed under *waiting on you*, never guessed); any bank-line files pass `engine/scripts/validate.py` (it checks bank lines only, so don't report the other files as validated); the user has seen a one-screen summary; the next step (first data in) has either started or is listed under *waiting on you*.
 
 ---
 

@@ -257,7 +257,11 @@ def one_pager(ent, inputs, fin, tax, period, now, prior, ppa, dla, lines, names,
         if cls.get(code) in ("direct_costs", "staff_costs", "depreciation", "expense", "tax"):
             out.append(f"| {names.get(code, name)}{' (credit, reduces costs)' if v < 0 else ''} | {m(-v)} |")
     out += [f"| **{'Profit' if result >= 0 else 'Loss'} for the year** | **{m(result)}** |", "",
-            f"## 2. Balance sheet at {end}", "", "| | This year £ | Last year £ |", "|---|---:|---:|"]
+            f"## 2. Balance sheet at {end}", "",
+            ("Last year's column is restated: it includes the correction to last year (section 3), so it differs "
+             "from the accounts filed last year. That is the figure to file as the comparative." if ppa else
+             "Last year's column is last year's accounts as filed."), "",
+            "| | This year £ | Last year £ |", "|---|---:|---:|"]
     rows = [("Fixed assets", "fixed_assets", 1), ("Current assets", "current_assets", 1),
             ("Creditors: due within one year", "creditors_within_one_year", -1),
             ("Accruals and deferred income", "accruals_and_deferred_income", -1)]
