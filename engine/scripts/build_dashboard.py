@@ -164,7 +164,7 @@ th{color:var(--muted);font-size:13px}.n{text-align:right;font-variant-numeric:ta
 rect.in{fill:var(--in)}rect.out{fill:var(--out)}.axis{stroke:var(--line)}.cashline{fill:none;stroke:var(--cash);stroke-width:2}.cash{fill:var(--cash)}
 .lbl{fill:var(--muted);font-size:11px;text-anchor:middle}.lbl.end{text-anchor:end}.legend{font-size:13px;color:var(--muted)}
 .k{display:inline-block;width:10px;height:10px;border-radius:2px;margin:0 4px 0 12px}.k.in{background:var(--in)}.k.out{background:var(--out)}.k.cash{background:var(--cash)}
-a{color:var(--cash)}li{margin:4px 0}
+a{color:var(--cash)}li{margin:4px 0}footer{margin-top:24px;font-size:12px;color:var(--muted);text-align:center}
 """
 
 
@@ -185,7 +185,8 @@ def main():
         fy = fy or b.fy_label(date.today().isoformat(), int(ent.get("year_end_month") or 12))
     check_html = ("<ul>" + "".join(f"<li>{E(c)}</li>" for c in checks) + "</ul>") if checks else \
         "<p class='muted'>No unusual results.</p>"
-    page = (f"<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' "
+    mark, page = b.maker_mark()
+    page_html = (f"<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' "
             f"content='width=device-width,initial-scale=1'><title>{E(ent.get('name', entity_id))} accounts</title>"
             f"<style>{CSS}</style></head><body><main><h1>{E(ent.get('name', entity_id))}</h1>"
             f"<p class='muted'>Built {date.today():%d %b %Y} from the books on this computer. It doesn't update "
@@ -194,9 +195,11 @@ def main():
             f"<section><h2>Money in and out by month</h2>{chart(monthly(entity_id, ent, fy))}</section>"
             f"<div class='two'><section><h2>Coming up</h2>{due_html(root)}</section>"
             f"<section><h2>Waiting on</h2>{waiting_html(root)}</section></div>"
-            f"<section><h2>Worth a second look</h2>{check_html}</section></main></body></html>")
+            f"<section><h2>Worth a second look</h2>{check_html}</section>"
+            f"<footer>{E(mark)} · <a href='{E(page)}'>{E(page.split('//')[1].rstrip('/'))}</a> · software that "
+            f"helps you prepare your own accounts; not accountancy advice.</footer></main></body></html>")
     out = root / "dashboard.html"
-    out.write_text(page)
+    out.write_text(page_html)
     print(f"written {out.resolve()}")
     print(f"Tell the director: open {out.resolve()} in your browser (double-click it, or right-click it in VS Code "
           f"and choose 'Reveal in File Explorer' / 'Reveal in Finder'). It stays on this computer.")

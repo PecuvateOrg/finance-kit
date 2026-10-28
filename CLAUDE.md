@@ -6,6 +6,7 @@ This file is Layer 0: identity and routing only. **Read `NON-NEGOTIABLES.md` bef
 
 ## Start here
 
+- **Just cloned or updated the kit?** Check it's genuine first (`VERIFY.md`, two commands). If the check fails, stop and tell the user: don't use a copy that has been changed.
 - No company in `books/` yet, or the user says "set me up": run **`engine/stages/00_setup/CONTEXT.md`**.
 - Otherwise: read `books/<entity>/status.json` and `obligations.json`, tell the user what's waiting and what's due next, and route to the stage below.
 

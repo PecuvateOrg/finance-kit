@@ -308,6 +308,8 @@ def one_pager(ent, inputs, fin, tax, period, now, prior, ppa, dla, lines, names,
             f"| Taxable profit | {tax['taxable_profit']:,.2f} |",
             f"| Corporation tax{' (after marginal relief)' if tax['marginal_relief'] else ''} | {tax['corporation_tax']:,.2f} |",
             f"| Losses carried forward | {tax['losses_carried_forward']:,.2f} |", ""]
+    mark, page = b.maker_mark()
+    out += ["---", f"*{mark} · {page} · software that helps you prepare your own accounts; not accountancy advice.*", ""]
     return "\n".join(out)
 
 
