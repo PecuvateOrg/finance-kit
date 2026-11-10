@@ -45,7 +45,24 @@ PL = {"revenue": "turnover", "other_income": "other_income", "direct_costs": "co
       "staff_costs": "staff_costs", "depreciation": "depreciation", "expense": "other_operating_expenses",
       "tax": "tax"}
 BS = {"fixed_asset", "current_asset", "bank", "current_liability", "accruals", "equity"}
-SMALL, MAIN, LOWER, UPPER = Decimal("0.19"), Decimal("0.25"), Decimal(50000), Decimal(250000)
+CT_RATES = json.loads((Path(__file__).resolve().parents[1] / "reference" / "rules" / "corporation_tax.json").read_text())
+
+
+def ct_rates(start, end):
+    """The rate row for the period. A period crossing financial years with different rates must be apportioned
+    by days, which this draft does not do: stop and say so rather than use one year's rates."""
+    rows = [r for r in CT_RATES["rows"] if r["from"] <= end.isoformat() and start.isoformat() <= r["to"]]
+    keys = {(r["small_profits_rate"], r["main_rate"], r["lower_limit"], r["upper_limit"]) for r in rows}
+    if not rows:
+        raise SystemExit(f"No corporation tax rates for {start}..{end} in engine/reference/rules/corporation_tax.json")
+    if len(keys) > 1:
+        raise SystemExit(f"{start}..{end} spans a corporation tax rate change: apportion by days by hand")
+    r = rows[0]
+    n, d = r["marginal_relief_fraction"].split("/")
+    return Decimal(r["small_profits_rate"]), Decimal(r["main_rate"]), Decimal(r["lower_limit"]), \
+        Decimal(r["upper_limit"]), Decimal(n) / Decimal(d)
+
+
 R = lambda v: v.quantize(Decimal("0.01"), ROUND_HALF_UP)
 # Facts only the director knows; each needs {"answer": "...", "decided_by": "director"} in accounts.decisions.
 DECISIONS = ["closing_stock", "use_of_home", "mileage", "accruals", "trading_losses_bf", "associated_companies"]
@@ -71,6 +88,7 @@ def balance_sheet(bal, cls):
 
 
 def corporation_tax(profit, start, end, associated):
+    SMALL, MAIN, LOWER, UPPER, FRACTION = ct_rates(start, end)
     days = (end - start).days + 1
     share = Decimal(min(days, 365)) / Decimal(365) / (associated + 1)  # a full year gets the full limits
     lower, upper = LOWER * share, UPPER * share
@@ -80,7 +98,7 @@ def corporation_tax(profit, start, end, associated):
         return R(profit * SMALL), Decimal(0)
     if profit >= upper:
         return R(profit * MAIN), Decimal(0)
-    relief = R((upper - profit) * Decimal(3) / Decimal(200))
+    relief = R((upper - profit) * FRACTION)  # assumes augmented profits = taxable profits (no exempt distributions)
     return R(profit * MAIN) - relief, relief
 
 

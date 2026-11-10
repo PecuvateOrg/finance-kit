@@ -4,7 +4,7 @@
 **Trigger:** `50_year_end` is done (`period.json` → `match_status: draft`) and the director wants to file.
 **Done means:** both filings show **accepted**; the acceptance responses are saved in `books/<id>/filed/<FY>/`; `obligations.json` marks both filed with their references; `period.json` → `match_status: filed`.
 
-**Route:** the TinyTax API (`engine/reference/filing/tinytax.md`). The director has their **own** TinyTax account and key, so the filing is theirs. Other routes (Companies House WebFiling for accounts, other HMRC-recognised software for the CT600) are typed in by the director from a sheet the agent prepares.
+**Route:** the TinyTax API (`engine/reference/tools/filing/tinytax.md`). The director has their **own** TinyTax account and key, so the filing is theirs. Other routes (Companies House WebFiling for accounts, other HMRC-recognised software for the CT600) are typed in by the director from a sheet the agent prepares.
 
 ---
 
@@ -29,7 +29,7 @@ Test the key first with a read-only call (`GET /account`). A 403 can mean bot pr
 
 ## 2. Build both requests — agent
 
-Take the `financials` block from `accounts.json` exactly as `build_accounts.py` wrote it (never retype a figure), and build the accounts request and the CT600 request around it (field shapes in `engine/reference/filing/tinytax.md`). Keep a copy of each in `books/<id>/filed/<FY>/tinytax/` with every credential replaced by a marker such as `<secret:CH_AUTH_CODE>`. Never store the real value.
+Take the `financials` block from `accounts.json` exactly as `build_accounts.py` wrote it (never retype a figure), and build the accounts request and the CT600 request around it (field shapes in `engine/reference/tools/filing/tinytax.md`). Keep a copy of each in `books/<id>/filed/<FY>/tinytax/` with every credential replaced by a marker such as `<secret:CH_AUTH_CODE>`. Never store the real value.
 
 ## 3. Live dry run — agent
 

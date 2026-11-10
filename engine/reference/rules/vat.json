@@ -1,0 +1,20 @@
+{
+  "_about": "UK VAT figures by date. The ONLY copy: scripts read this file; vat.md explains it. VAT coding in the engine is not built yet.",
+  "thresholds": [
+    {"from": "2024-04-01", "register_over": 90000, "may_cancel_under": 88000},
+    {"from": "2017-04-01", "register_over": 85000, "may_cancel_under": 83000}
+  ],
+  "rates": [
+    {"from": "2011-01-04", "standard": "0.20", "reduced": "0.05", "zero": "0"}
+  ],
+  "flat_rate_scheme": [
+    {"from": "2017-04-01", "join_if_vat_turnover_up_to": 150000, "limited_cost_rate": "0.165",
+     "limited_cost_test": "goods under 2% of VAT-inclusive turnover, or under £1,000 a year if more than 2%"}
+  ],
+  "return_due": "1 calendar month and 7 days after the period ends (filing and payment)",
+  "sources": ["https://www.gov.uk/how-vat-works/vat-thresholds", "https://www.gov.uk/vat-registration/when-to-register",
+              "https://www.gov.uk/vat-rates", "https://www.gov.uk/vat-returns/deadlines",
+              "https://www.gov.uk/vat-flat-rate-scheme/eligibility", "https://www.gov.uk/vat-flat-rate-scheme/how-much-you-pay"],
+  "checked": "2026-11-10",
+  "review_by": "2027-04-01"
+}

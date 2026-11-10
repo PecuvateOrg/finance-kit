@@ -24,7 +24,8 @@ Calculated here, never typed in as adjustments (an adjustment with the same acco
                  {"<platform>": {"amount", "source"}}}; fees = total_sales - received_in_bank, debit 404 credit sales.
                  received_in_bank must equal the bank lines coded to sales from platforms.
   use of home    accounts.decisions.use_of_home.weeks x £6, debit 445 credit 835
-  mileage        accounts.decisions.mileage.miles at 45p (25p over 10,000), debit 493 credit 835
+  mileage        accounts.decisions.mileage (miles, by tax year if the period crosses 6 April) at the rates in
+                 engine/reference/rules/expense_rates.json, debit 493 credit 835
 Opening balances of accounts WITH files come from their first line (balance_after - amount).
 
 Checks (exit 1 on any failure): every code is in accounts/account_map.json; each file's balances chain; each pair of
@@ -44,7 +45,20 @@ import books_io as b
 D = lambda v: Decimal(str(v or 0)).quantize(Decimal("0.01"))
 RE = "960"
 FEES, HOME, TRAVEL, DLA, CT_CREDITOR = "404", "445", "493", "835", "830"
-HOME_WEEKLY = Decimal(6)  # HMRC flat rate for working from home, per week
+RATES = json.loads((Path(__file__).resolve().parents[1] / "reference" / "rules" / "expense_rates.json").read_text())
+HOME_WEEKLY = Decimal(max(RATES["home_working_weekly"], key=lambda r: r["from"])["gbp"])  # HMRC flat rate per week
+
+
+def tax_year(d):
+    """'2026-27' for any date from 6 April 2026 to 5 April 2027."""
+    y = d.year if (d.month, d.day) >= (4, 6) else d.year - 1
+    return f"{y}-{str(y + 1)[2:]}"
+
+
+def mileage_rate(ty):
+    start = date(int(ty[:4]), 4, 6).isoformat()
+    r = max((x for x in RATES["mileage_car_van"] if x["from"] <= start), key=lambda x: x["from"])
+    return Decimal(r["first_10000"]), Decimal(r["above_10000"])
 EVIDENCED = {"bank", "current_asset", "current_liability", "accruals", "fixed_asset"}
 PLATFORMS = re.compile(r"shopify|paypal|stripe|etsy|amazon|ebay|square|sumup|zettle|wix|squarespace|gumroad", re.I)
 
@@ -117,14 +131,33 @@ def decision_postings(dec, inputs, problems):
                             "note": f"Use of home, HMRC flat rate £{HOME_WEEKLY}/week x {weeks} weeks, owed to the director"})
     miles = dec.get("mileage")
     if miles is not None:
-        if "miles" not in miles:
+        if "miles" not in miles and "by_tax_year" not in miles:
             problems.append('decisions.mileage needs "miles": business miles in the director\'s own car, from their '
                             'mileage log (0 if none)')
-        elif D(miles["miles"]):
-            m = D(miles["miles"])
-            amt = (min(m, 10000) * Decimal("0.45") + max(m - 10000, 0) * Decimal("0.25")).quantize(Decimal("0.01"))
-            out.append({"debit": TRAVEL, "credit": DLA, "amount": amt, "decided_by": "director",
-                        "note": f"Business mileage, HMRC rates (45p, 25p over 10,000) x {m} miles, owed to the director"})
+        else:
+            start, end = inputs.get("period_start"), inputs.get("period_end")
+            years = sorted({tax_year(date.fromisoformat(start)), tax_year(date.fromisoformat(end))}) if start and end else []
+            parts = miles.get("by_tax_year")
+            if parts is None and len(years) > 1 and D(miles.get("miles")):
+                problems.append(f'decisions.mileage: the period crosses 6 April ({" and ".join(years)}), where the '
+                                'rate and the 10,000-mile band reset. Give {"by_tax_year": {"<year>": {"miles": n, '
+                                '"earlier_miles": m}}} (see engine/reference/rules/expense_rates.md)')
+                parts = {}
+            elif parts is None:
+                parts = {years[0] if years else "": {"miles": miles.get("miles", 0)}} if D(miles.get("miles")) else {}
+            elif set(parts) != set(years):
+                problems.append(f"decisions.mileage.by_tax_year has {sorted(parts)}; the period covers {years}")
+                parts = {}
+            for ty, p in sorted(parts.items()):
+                m, before = D(p.get("miles")), D(p.get("earlier_miles"))
+                if not m:
+                    continue
+                hi, lo = mileage_rate(ty)
+                band = max(Decimal(10000) - before, Decimal(0))
+                amt = (min(m, band) * hi + max(m - band, 0) * lo).quantize(Decimal("0.01"))
+                out.append({"debit": TRAVEL, "credit": DLA, "amount": amt, "decided_by": "director",
+                            "note": f"Business mileage {ty}, HMRC rates ({int(hi * 100)}p, {int(lo * 100)}p over 10,000 "
+                                    f"a tax year) x {m} miles, owed to the director"})
     return out
 
 

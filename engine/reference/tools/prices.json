@@ -1,0 +1,171 @@
+{
+  "_about": "Public prices of the platforms the finance engine can recommend. Read by engine/scripts/pick_platforms.py. Prices excl. VAT unless noted; gbp null = not recorded yet, the picker says 'check'.",
+  "checked": "2026-11-10",
+  "vat_rate": 0.2,
+  "prices": {
+    "tinytax_solo": {
+      "gbp": 79,
+      "per": "year",
+      "vat": "excl",
+      "note": "1 trading company: CT600 + Companies House accounts. Was £59 (Oct 2026); on 2026-11-10 the page showed £69 or £79 to different visitors (price test), higher figure used"
+    },
+    "tinytax_portfolio": {
+      "gbp": 99,
+      "per": "year",
+      "vat": "excl",
+      "note": "up to 3 companies"
+    },
+    "tinytax_portfolio12": {
+      "gbp": 189,
+      "per": "year",
+      "vat": "excl",
+      "note": "up to 12 companies"
+    },
+    "tinytax_dormant": {
+      "gbp": 20,
+      "per": "year",
+      "vat": "excl",
+      "note": "per dormant company"
+    },
+    "informdirect_sub_first": {
+      "gbp": 10.0,
+      "per": "month",
+      "vat": "excl",
+      "note": "subscription, first company"
+    },
+    "informdirect_sub_next": {
+      "gbp": 0.69,
+      "per": "month",
+      "vat": "excl",
+      "note": "subscription, each company 2-50"
+    },
+    "informdirect_payg_cs": {
+      "gbp": 15,
+      "per": "filing",
+      "vat": "excl",
+      "note": "pay-as-you-go confirmation statement, plus Companies House fee"
+    },
+    "informdirect_payg_micro": {
+      "gbp": 45,
+      "per": "filing",
+      "vat": "excl",
+      "note": "pay-as-you-go micro accounts"
+    },
+    "ch_confirmation_statement": {
+      "gbp": 50,
+      "per": "year",
+      "vat": "none",
+      "note": "Companies House statutory fee; file direct on Companies House (TinyTax CS01 is £74 incl. this fee)"
+    },
+    "ch_cic_package": {
+      "gbp": 15,
+      "per": "year",
+      "vat": "none",
+      "note": "CIC accounts + CIC34 package upload"
+    },
+    "simplecompanytax_cic": {
+      "gbp": 25,
+      "per": "year",
+      "vat": "excl",
+      "note": "active micro-entity (FRS 105), unlimited filings a year: CT600 filed to HMRC + accounts; for a CIC, CIC34 + Companies House package ZIP (CH £15 fee separate). Dormant £10"
+    },
+    "hmrc_basic_paye_tools": {
+      "gbp": 0,
+      "per": "year",
+      "vat": "none",
+      "note": "HMRC's free payroll software, fewer than 10 employees. Sends RTI only: no payslip printing (save as PDF), no auto-enrolment assessment or pension files, desktop, no API"
+    },
+    "xero_ignite": {
+      "gbp": 18,
+      "per": "month",
+      "vat": "excl",
+      "note": "Ignite list price after the 6-month intro discount (£1.80/month for months 1-6); non-profit discounts exist. Grow £39, Comprehensive £55"
+    },
+    "ch_webfiling_micro": {
+      "gbp": 0,
+      "per": "year",
+      "vat": "none",
+      "note": "no Companies House fee for filing accounts (CIC package excepted)"
+    },
+    "tinytax_mtd_vat": {
+      "gbp": 29,
+      "per": "year",
+      "vat": "excl",
+      "note": "MTD VAT returns, 1 VAT number"
+    },
+    "primo_essentials_free": {
+      "gbp": 0,
+      "per": "year",
+      "vat": "excl",
+      "note": "Primo Payroll Essentials (free, with adverts): up to 10 employees incl. leavers, RTI, payslip emailing; auto-enrolment module shown on the plan but not confirmed in text; no public API. Checked 2026-11-10"
+    },
+    "primo_essentials_50": {
+      "gbp": 49.99,
+      "per": "year",
+      "vat": "excl",
+      "note": "Primo Payroll Essentials 50: as free plan, no adverts, email + phone support"
+    },
+    "staffology_payroll": {
+      "gbp": null,
+      "per": "month",
+      "vat": "excl",
+      "note": "IRIS Staffology Payroll: cloud, open API (API-first), RTI, payslips, auto-enrolment. Price unclear: vendor/review figures range £10/month + payslips (minimum £35/month) to £43/month; confirm on staffology.co.uk. Re-checked 2026-11-10: pricing page is script-only, no figure readable"
+    },
+    "xero_payroll": {
+      "gbp": 1.5,
+      "per": "month",
+      "vat": "excl",
+      "note": "per person per month on Ignite (Grow includes 1 person, Ultimate 10); needs a Xero plan; API; RTI, payslips, auto-enrolment"
+    }
+  },
+  "watch": [
+    {
+      "name": "TinyTax pricing",
+      "url": "https://www.tinytax.co.uk/pricing",
+      "expect": [
+        [
+          "£69",
+          "£79"
+        ],
+        "£99",
+        "£189",
+        "£20",
+        "£74",
+        "£29"
+      ]
+    },
+    {
+      "name": "Inform Direct pricing",
+      "url": "https://www.informdirect.co.uk/pricing/",
+      "expect": [
+        "£10.00",
+        "£0.69",
+        "£45",
+        "£15"
+      ]
+    },
+    {
+      "name": "Primo Payroll pricing",
+      "url": "https://www.primopayroll.co.uk/pricing",
+      "expect": [
+        "£24.99",
+        "£49.99"
+      ]
+    },
+    {
+      "name": "SimpleCompanyTax pricing",
+      "url": "https://www.simplecompanytax.co.uk/pricing",
+      "expect": [
+        "£25",
+        "£10"
+      ]
+    },
+    {
+      "name": "Xero pricing",
+      "url": "https://www.xero.com/uk/pricing-plans/",
+      "expect": [
+        "£1.50 per person"
+      ]
+    }
+  ]
+}

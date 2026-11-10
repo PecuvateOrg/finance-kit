@@ -90,7 +90,7 @@ That's the whole intake. Anything else is asked later, at the step that needs it
 
 ## Step 6 — First data in, by the easiest route per account
 
-For each bank, card and payment platform, open its guide in `engine/reference/banks/`. **If there's no guide, research the provider (its own help pages first), write one to the shape in `engine/reference/banks/README.md`, then use it.** Offer the routes easiest first:
+For each bank, card and payment platform, open its guide in `engine/reference/tools/banks/`. **If there's no guide, research the provider (its own help pages first), write one to the shape in `engine/reference/tools/banks/README.md`, then use it.** Offer the routes easiest first:
 
 - **API** (for example Starling, Stripe): walk the user through making a **read-only** key and putting it in their own secret store (environment variable or OS keychain). Never paste it into chat or a file in the repo.
 - **Accounting platform feed:** read through the platform's API if the user already has one.
@@ -100,13 +100,17 @@ Prove each account's balance before calling it done. Payment-platform payouts ar
 
 ## Step 7 — Summary for the director (one screen)
 
-What's set up · the deadline calendar (next 12 months) · what the agent does each month · **what's waiting on you**, with links. End with the next action and its date.
+What's set up · the deadline calendar (next 12 months) · what the agent does each month · **the recommended platforms** · **what's waiting on you**, with links. End with the next action and its date.
+
+**Recommended platforms:** run `engine/scripts/pick_platforms.py` with the facts already gathered (company type, turnover / balance sheet / employees from the last accounts, VAT, the software named in Step 4) and show its table as it comes out: cost a year, how the agent connects, the cheaper manual alternatives and anything not covered yet. Don't add platforms it didn't list or change its prices; prices live in `engine/reference/tools/prices.json`. The user signs up and pays for each platform themselves: give the link, never sign up on their behalf. Record the choices in `entity.json` → `platforms`.
 
 ---
 
 ## Edge cases
 
 - **Nothing on Companies House** (sole trader, partnership): say so, record it, stop the filing stages. Bookkeeping can still run.
+- **Unincorporated club, society or association** (not a charity): books and a members' year-end report only; run the picker with `--type unincorporated`.
+- **Registered charity, CIO or charitable company** (Charity Commission register, or "charity" in the company type): not covered. Say so plainly and stop; recommend nothing.
 - **A payment or filing deadline within 30 days whose status isn't known** (often the corporation tax payment, 9 months and 1 day after the year end, which nothing public confirms): put it at the very top of the summary, with the date moved to the previous working day if it falls on a weekend, and ask whether it's done before anything else.
 - **Overdue filings:** list them first in the summary, with the penalty position. Don't start a filing without the director's approval.
 - **Dormant company:** record it. Filing is the dormant-accounts route, not this kit's trading-accounts stages.

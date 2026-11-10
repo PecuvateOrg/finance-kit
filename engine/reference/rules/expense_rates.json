@@ -1,0 +1,14 @@
+{
+  "_about": "HMRC flat rates the company may pay a director tax-free, by tax year (6 April - 5 April). The ONLY copy: engine/scripts/build_tb.py reads it; expense_rates.md explains it.",
+  "mileage_car_van": [
+    {"tax_year": "2026-27", "from": "2026-04-06", "first_10000": "0.55", "above_10000": "0.25"},
+    {"tax_year": "2011-26", "from": "2011-04-06", "first_10000": "0.45", "above_10000": "0.25"}
+  ],
+  "home_working_weekly": [
+    {"from": "2020-04-06", "gbp": "6"}
+  ],
+  "sources": ["https://www.gov.uk/expenses-and-benefits-business-travel-mileage/rules-for-tax",
+              "https://www.gov.uk/tax-relief-for-employees/working-at-home"],
+  "checked": "2026-11-10",
+  "review_by": "2027-04-06"
+}

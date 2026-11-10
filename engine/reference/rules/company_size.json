@@ -1,0 +1,12 @@
+{
+  "_about": "Company size limits (Companies Act 2006 s382-384A). A company is in a band if it meets at least 2 of the 3, two years running (a new company: its first year). The ONLY copy of these numbers: engine/scripts/pick_platforms.py reads this file; company_size.md explains it.",
+  "rows": [
+    {"band": "micro", "turnover": 1000000, "balance_sheet": 500000, "employees": 10, "periods_starting_from": "2025-04-06", "periods_starting_before": null},
+    {"band": "small", "turnover": 15000000, "balance_sheet": 7500000, "employees": 50, "periods_starting_from": "2025-04-06", "periods_starting_before": null},
+    {"band": "micro", "turnover": 632000, "balance_sheet": 316000, "employees": 10, "periods_starting_from": null, "periods_starting_before": "2025-04-06"},
+    {"band": "small", "turnover": 10200000, "balance_sheet": 5100000, "employees": 50, "periods_starting_from": null, "periods_starting_before": "2025-04-06"}
+  ],
+  "source": "https://www.legislation.gov.uk/uksi/2024/1303/contents/made",
+  "checked": "2026-11-10",
+  "review_by": "2027-04-06"
+}

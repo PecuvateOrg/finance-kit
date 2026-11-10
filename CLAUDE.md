@@ -17,23 +17,25 @@ This file is Layer 0: identity and routing only. **Read `NON-NEGOTIABLES.md` bef
 | Task | Stage contract |
 |---|---|
 | Set up a company | `engine/stages/00_setup/CONTEXT.md` |
-| Get bank / card / payment lines in | `engine/reference/banks/<provider>.md`, then `50_year_end` steps 1–4 |
+| Get bank / card / payment lines in | `engine/reference/tools/banks/<provider>.md`, then `50_year_end` steps 1–4 |
 | Year-end accounts (draft, prove, director decides) | `engine/stages/50_year_end/CONTEXT.md` |
 | File accounts + CT600 (dry run, approval, submit, proof) | `engine/stages/60_filing/CONTEXT.md` |
-| How the filing software works | `engine/reference/filing/tinytax.md` |
+| Which reference to open (method, rules, tools) | `engine/reference/CONTEXT.md` |
+| How the filing software works | `engine/reference/tools/filing/tinytax.md` |
 | Check the books | `python3 engine/scripts/validate.py <entity>` |
 | "Show me my accounts", a visual overview | `python3 engine/scripts/build_dashboard.py <entity>`, then give the user the file path it prints |
 
 ## Cross-stage flow
 
-A company's year runs `00_setup` (once) → bank lines each month (`engine/reference/banks/`) → `50_year_end` after the year end → `60_filing` once the director approves. Each stage's *Done means* line is the handover to the next.
+A company's year runs `00_setup` (once) → bank lines each month (`engine/reference/tools/banks/`) → `50_year_end` after the year end → `60_filing` once the director approves. Each stage's *Done means* line is the handover to the next.
 
 ## File placement
 
 | New file | Goes in |
 |---|---|
 | Anything about one company | `books/<id>/` (see the stage contract for the exact path) |
-| A guide for a bank or platform not yet covered | `engine/reference/banks/<provider>.md` |
+| A guide for a bank or platform not yet covered | `engine/reference/tools/banks/<provider>.md` |
+| A new fact about accounting, law or a tool | the folder `engine/reference/CONTEXT.md` names (method / rules / tools) |
 | Something unusual about one company | `books/<id>/gotchas.md` |
 
 ## Token management

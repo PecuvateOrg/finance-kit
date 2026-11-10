@@ -25,4 +25,4 @@ The agent downloads the kit, reads its instructions, finds your company's detail
 - **It's signed.** Your agent checks the kit is genuine, unchanged since its makers signed it, before using it (`VERIFY.md`).
 - **Everything runs on your computer.** Your figures stay in the `books/` folder there; the people who made this kit never see them. Keep `books/` private: back it up to a **private** repository or folder, never a public one.
 - **You stay in charge.** This is software, not an accountancy service and not tax advice. The agent prepares and checks; you, as director, are responsible for the accounts and returns, and nothing is filed without your approval.
-- **Filing costs:** you'll need your own TinyTax account (from £59 + VAT a year) when it's time to file. The agent tells you when.
+- **Filing costs:** during setup the agent recommends the cheapest platforms for your filings, with their yearly cost. You sign up and pay for each one yourself, when the agent says it's needed. Registered charities aren't covered.

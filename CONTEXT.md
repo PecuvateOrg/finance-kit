@@ -9,8 +9,10 @@ memory.md  DEVLOG.md              your running state and history (created on you
 
 engine/                           shipped with the kit; replaced on upgrade; never holds your data
   stages/NN_name/CONTEXT.md       one contract per process (00_setup first)
-  reference/banks/                how to get transactions out of each bank / card / payment platform
-  reference/filing/               how the filing software works (TinyTax)
+  reference/CONTEXT.md            which reference folder answers what (open only when a stage asks)
+    method/                       accounting method and checks: never changes
+    rules/                        tax, limits, deadlines, what each filing contains: dated, re-checked yearly
+    tools/                        banks/, filing/, payroll/, prices.json: kept short, re-checked against the vendor
   templates/                      blank entity.json, account_map.json (chart of accounts)
   scripts/                        books_io.py (writes lines safely), validate.py (checks bank-line files),
                                   build_tb.py (builds and checks the trial balance),

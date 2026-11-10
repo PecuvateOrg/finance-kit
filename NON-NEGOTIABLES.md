@@ -5,7 +5,7 @@ The rules for how this space works. They hold in every stage, whatever the user 
 ## How you work
 
 1. **Discover before you ask.** Before asking the user anything, look it up: Companies House, the company's website, its filed accounts, the files in `books/`, earlier answers. Ask only what no source holds, in one batch, with your best guess pre-filled. Ask for credentials only at the step that uses them.
-2. **Adapt to what the user already uses.** Their bank, card, payment platform and accounting software (or none) are inputs. Never make a switch a requirement. Guides for each provider are in `engine/reference/banks/`; if one is missing, research it and write it.
+2. **Adapt to what the user already uses.** Their bank, card, payment platform and accounting software (or none) are inputs. Never make a switch a requirement. Guides for each provider are in `engine/reference/tools/banks/`; if one is missing, research it and write it.
 3. **Prove before you claim.** A figure is never "done" on your say-so: balances are proven by `engine/scripts/validate.py`. If a check can't run, say so.
 4. **Plain words.** Tell the director what's happening, what's needed from them, and by when. No jargon without a one-line explanation.
 

@@ -4,7 +4,10 @@
   "company_number": "<8 characters>",
   "company_number_source": "Companies House, confirmed by the director YYYY-MM-DD",
   "incorporated": "YYYY-MM-DD",
-  "share_capital": {"amount": null, "source": "<statement of capital: incorporation or latest confirmation statement with updates, with date>"},
+  "share_capital": {
+    "amount": null,
+    "source": "<statement of capital: incorporation or latest confirmation statement with updates, with date>"
+  },
   "year_end_month": 0,
   "year_end_day": 0,
   "accounts_basis": "FRS 105 micro-entity | FRS 102 1A small | dormant",
@@ -15,11 +18,20 @@
   "sic_codes": [],
   "registered_office": "<from Companies House>",
   "website": null,
-  "directors": [{"name": "<from Companies House>", "is_user": false}],
+  "directors": [
+    {
+      "name": "<from Companies House>",
+      "is_user": false
+    }
+  ],
   "connectors": {
     "ledger": "none | xero | freeagent | quickbooks | other",
-    "bank": {"<account_key>": "api | platform_feed | statements"},
-    "payments": {"<platform_key>": "api | statements"},
+    "bank": {
+      "<account_key>": "api | platform_feed | statements"
+    },
+    "payments": {
+      "<platform_key>": "api | statements"
+    },
     "filing": "tinytax | other | not_chosen"
   },
   "bank_accounts": {
@@ -27,14 +39,24 @@
       "provider": "<bank or platform product>",
       "type": "business_current | credit_card | money_platform",
       "currency": "GBP",
-      "guide": "engine/reference/banks/<file>.md",
+      "guide": "engine/reference/tools/banks/<file>.md",
       "export_url": null,
       "statement_format": "CSV",
       "ledger_code": "<chart code for this account, e.g. 090>"
     }
   },
   "discovered": {
-    "<field>": {"value": "<…>", "source": "<URL or document>", "checked": "YYYY-MM-DD"}
+    "<field>": {
+      "value": "<…>",
+      "source": "<URL or document>",
+      "checked": "YYYY-MM-DD"
+    }
   },
-  "notes": ""
+  "notes": "",
+  "platforms": {
+    "books": null,
+    "filing": null,
+    "payroll": null,
+    "vat": null
+  }
 }

@@ -1,0 +1,10 @@
+{
+  "_about": "Corporation tax rates by financial year (a CT financial year runs 1 April to 31 March and is named by the year it starts). The ONLY copy: engine/scripts/build_accounts.py reads it; corporation_tax.md explains it. Limits are for a 12-month period with no associated companies; they are reduced pro rata for a shorter period and divided by (1 + associated companies).",
+  "rows": [
+    {"financial_years": "2023-2026", "from": "2023-04-01", "to": "2027-03-31", "small_profits_rate": "0.19", "main_rate": "0.25", "lower_limit": 50000, "upper_limit": 250000, "marginal_relief_fraction": "3/200"},
+    {"financial_years": "2017-2022", "from": "2017-04-01", "to": "2023-03-31", "small_profits_rate": "0.19", "main_rate": "0.19", "lower_limit": 0, "upper_limit": 0, "marginal_relief_fraction": "0/1"}
+  ],
+  "source": "https://www.gov.uk/government/publications/rates-and-allowances-corporation-tax/rates-and-allowances-corporation-tax",
+  "checked": "2026-11-10",
+  "review_by": "2027-03-31"
+}

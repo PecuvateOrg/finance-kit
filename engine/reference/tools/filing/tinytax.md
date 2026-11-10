@@ -1,10 +1,11 @@
-# TinyTax — filing connector
+# TinyTax — micro accounts + CT600, API and MCP
 
-checked: 2026-10-25 (proven live: one micro-entity company's accounts and CT600 both accepted 2026-10)
-What it does: files **FRS 105 micro-entity accounts** to Companies House and the **CT600** to HMRC (trading companies, CICs, charities with CT600E, amendments, including returns filed elsewhere), through a public API. It's HMRC-recognised software.
-Cost: Solo from £59 + VAT a year (1 company), Portfolio for several. Billing happens on a real submit, never on a dry run.
-Docs: https://www.tinytax.co.uk/developers/quickstart · https://tinytax.co.uk/developers/guides/trading · https://tinytax.co.uk/developers/guides/amendments · https://www.tinytax.co.uk/developers/changelog
-There's also an MCP server (https://tinytax.co.uk/developers/mcp) with `validate_accounts` / `validate_ct600` tools. Use it if your agent supports MCP; the API below works without it.
+checked: 2026-10-25 (proven live: one micro company's accounts and CT600 both accepted 2026-10) · price: `prices.json` → `tinytax_*`
+
+**For:** filing **FRS 105 micro-entity accounts** to Companies House and the **CT600** to HMRC (trading companies, CICs, amendments, returns first filed elsewhere). HMRC-recognised. Billed only on a real submit, never on a dry run. Not for CIC accounts (those go as a package: `../companies_house/package_upload.md`) or small-company FRS 102 1A accounts.
+**Help:** https://www.tinytax.co.uk/developers/quickstart · https://tinytax.co.uk/developers/guides/trading · https://tinytax.co.uk/developers/guides/amendments · changelog https://www.tinytax.co.uk/developers/changelog · MCP https://tinytax.co.uk/developers/mcp (`validate_accounts`, `validate_ct600`)
+**Asks for:** the micro figures (`../rules/accounts_contents.md`) and the CT600 boxes (`../rules/ct600_contents.md`), from the engine's draft. Credentials (API key, company authentication code, Government Gateway login) come from the secret store, never chat.
+**Done when:** `GET /filings/{id}` says accepted, and the dry run's `calculated` block equalled the draft before the submit.
 
 **Check the field shapes against the current docs before the first filing.** The shapes below are what was accepted in October 2026.
 
