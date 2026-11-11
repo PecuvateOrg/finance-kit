@@ -29,8 +29,9 @@ inputs.json needs "period_start" and "period_end" (YYYY-MM-DD) and gains an "acc
      back in full, staff entertainment is allowed, so amount 0 with a note)
 
 Tax: small profits rate, marginal relief and main rate (limits shared between associated companies and
-scaled to the period's length), after trading losses b/f. Not covered, so the script stops: fixed assets or
-depreciation (capital allowances), periods starting before 2023-04-01, periods longer than 12 months.
+scaled to the period's length), after trading losses b/f. Fixed assets need
+  "capital_allowances": [{"amount", "type": "AIA|main_pool_wda|...", "asset", "decided_by"}] in the accounts block:
+  depreciation is added back and the allowances deducted. Not covered, so the script stops: periods starting before 2023-04-01, periods longer than 12 months.
 """
 import csv, json, sys
 from datetime import date
@@ -132,8 +133,9 @@ def draft(entity_id, fy):
         c = cls.get(code)
         if c not in PL and c not in BS:
             problems.append(f"{code} {names.get(code, '?')}: class '{c}' isn't a P&L or balance sheet class")
-        if c in ("fixed_asset", "depreciation") and (bal.get(code) or opening.get(code)):
-            problems.append(f"{code} {names.get(code)}: fixed assets need capital allowances, not in the kit yet")
+        if c in ("fixed_asset", "depreciation") and (bal.get(code) or opening.get(code)) \
+                and "capital_allowances" not in acc:
+            problems.append(f"{code} {names.get(code)}: fixed assets need accounts.capital_allowances in inputs.json")
 
     pl = dict.fromkeys(PL.values(), Decimal(0))
     for code, v in bal.items():
@@ -182,6 +184,14 @@ def draft(entity_id, fy):
         problems.append("prior_period_adjustment needs amount, tax_effect and decided_by (50_year_end step 7)")
     taxable = before_tax + D(ppa.get("tax_effect")) + sum((D(t["amount"]) for t in acc.get("tax_adjustments", [])),
                                                          Decimal(0))
+    # Capital allowances replace depreciation for tax: add depreciation back, deduct the allowances claimed.
+    cas = acc.get("capital_allowances") or []
+    for c_ in cas:
+        if not all(k in c_ for k in ("amount", "type", "asset", "decided_by")):
+            problems.append("capital_allowances entries need amount, type, asset and decided_by")
+    ca_total = sum((D(c_.get("amount")) for c_ in cas), Decimal(0))
+    if "capital_allowances" in acc:
+        taxable += pl["depreciation"] - ca_total
     losses_bf = D(acc.get("trading_losses_bf"))
     used = min(losses_bf, max(taxable, Decimal(0)))
     chargeable = max(taxable, Decimal(0)) - used
@@ -215,7 +225,9 @@ def draft(entity_id, fy):
         financials["prior_year"] = {k: f(v) for k, v in prior.items()
                                     if v or k != "accruals_and_deferred_income"}
     tax = {"profit_before_tax": f(before_tax), "prior_period_adjustment_tax_effect": f(D(ppa.get("tax_effect"))),
-           "tax_adjustments": acc.get("tax_adjustments", []), "taxable_profit": f(chargeable),
+           "tax_adjustments": acc.get("tax_adjustments", []),
+           "depreciation_added_back": f(pl["depreciation"]) if "capital_allowances" in acc else 0,
+           "capital_allowances": cas, "taxable_profit": f(chargeable),
            "losses_used": f(used), "losses_carried_forward": f(losses_cf), "marginal_relief": f(relief),
            "corporation_tax": f(ct), "associated_companies": acc.get("associated_companies")}
     period = {"entity_id": entity_id, "period_start": inputs.get("period_start"), "period_end": inputs.get("period_end"),
@@ -266,7 +278,9 @@ def one_pager(ent, inputs, fin, tax, period, now, prior, ppa, dla, lines, names,
            f"**A {'profit' if result >= 0 else 'loss'} of £{abs(result):,.2f}.** "
            + (f"Corporation tax: **£{tax['corporation_tax']:,.2f}**." if tax["corporation_tax"]
               else "No corporation tax is payable.")
-           + (f" Losses of £{tax['losses_carried_forward']:,.2f} carry forward against future profits."
+           + ((f" £{tax['losses_carried_forward']:,.2f} of pre-trading costs are deducted on the first day of trading."
+               if inputs.get("accounts", {}).get("pre_trading") else
+               f" Losses of £{tax['losses_carried_forward']:,.2f} carry forward against future profits.")
               if tax["losses_carried_forward"] else ""), "",
            "| Profit and loss | £ |", "|---|---:|", f"| Turnover | {m(pl['turnover'])} |"]
     if pl["other_income"]:
@@ -322,10 +336,13 @@ def one_pager(ent, inputs, fin, tax, period, now, prior, ppa, dla, lines, names,
     out += [f"{i}. {p}" for i, p in enumerate(points, 1)] or ["None."]
     out += ["", "## 6. Tax", "", "| | £ |", "|---|---:|",
             f"| Profit before tax | {m(Decimal(str(tax['profit_before_tax'])))} |",
+            *([f"| Add back depreciation | {tax['depreciation_added_back']:,.2f} |"] if tax.get('depreciation_added_back') else []),
+            *[f"| Less capital allowances: {c['type']}, {c['asset']} | ({D(c['amount']):,.2f}) |"
+              for c in tax.get('capital_allowances') or []],
             f"| Losses brought forward used | ({tax['losses_used']:,.2f}) |",
             f"| Taxable profit | {tax['taxable_profit']:,.2f} |",
             f"| Corporation tax{' (after marginal relief)' if tax['marginal_relief'] else ''} | {tax['corporation_tax']:,.2f} |",
-            f"| Losses carried forward | {tax['losses_carried_forward']:,.2f} |", ""]
+            f"| {'Pre-trading costs, relieved on the first day of trading' if inputs.get('accounts', {}).get('pre_trading') else 'Losses carried forward'} | {tax['losses_carried_forward']:,.2f} |", ""]
     mark, page = b.maker_mark()
     out += ["---", f"*{mark} · {page} · software that helps you prepare your own accounts; not accountancy advice.*", ""]
     return "\n".join(out)

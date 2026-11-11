@@ -9,7 +9,7 @@ c8ec74986fd5b19976c946978994566b4eceae58a1e41e1e6e00dc7fc344b0eb  ./README.md
 c56c830452f92b71b8f5c65240b5c7edb54b5698e00523ae50d207c487b8c6b5  ./VERIFY.md
 9a5c48ab7522663f72e03f3f3ea903475b85191c33dc5473f7eb73662a0c03f9  ./agent-roles.md
 6779284ae3117d495f079b2d1b908b28dd947c9ef17ea628eb964552a3196bc5  ./allowed_signers
-a0ad50640139a524f86591157145bf1d4674ea9c065bfea21558f0f7b04430c8  ./engine/VERSION
+97a5d6e540a6120d09c39ddb667e0e8e2bac7fcc2ffef813b82e08fd60365bce  ./engine/VERSION
 ccd8c7c78f0e8f20d2f78f4f5e43d43821d299ab968680ac88eb48acb1250a51  ./engine/reference/CONTEXT.md
 7944d70c553c1bd2ec355d92b425aa2da173d020a1f0f1e250f748bc160e6952  ./engine/reference/method/CONTEXT.md
 15010da9e44ded897917b03581a773d1d812cc68f4b135c8e0ea926789540710  ./engine/reference/method/bank_to_books.md
@@ -42,8 +42,8 @@ e0d0319be386b6925dcc3911accef8b9ab6e4c14e5832e517be4a7db915ad5a8  ./engine/refer
 2d972f37cb67163b8a276b9943916ace580b79e7ece6b4a563f26002eb598deb  ./engine/reference/tools/filing/tinytax.md
 187a55a8778f0f3c242465deaf10f9a6807f92f086496c6248435a52c0870829  ./engine/reference/tools/payroll/primo.md
 125f914960acc5d1b8af280d956225b7a80f9a61aa283841dc751a5cc6928244  ./engine/reference/tools/prices.json
-10845bc5b0dfc98795c7c5555dd339e27b395bc98fd54d216666f36b44b09e1d  ./engine/scripts/books_io.py
-e688a9c652e4b431b1cca05a9392e74a0545b3a66851a6838a586c92ee8091c0  ./engine/scripts/build_accounts.py
+a88dcb9fa57dad4314b9aee0923b286910bd5921358d243c2e805bb2eda6fb87  ./engine/scripts/books_io.py
+30483f8c8401c92ef6f0dd05d113526da0801170cb6bc5e2032c159853054554  ./engine/scripts/build_accounts.py
 cd7b3d511d729f96c6cbed93294f2bcd7d950b599a8ded511f2deefd9df99d9e  ./engine/scripts/build_dashboard.py
 14521b011e04c902581625ff5653bec83b5936707e6f45dfe952f2b68fcd87b2  ./engine/scripts/build_tb.py
 03d676063a20bf5438ad9f36a78c8faffef6dacbe9c22d393eeccdbfffbab66a  ./engine/scripts/fetch_prior_year.py

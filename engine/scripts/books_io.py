@@ -29,13 +29,13 @@ def books_root():
     return Path(os.environ.get("FINANCE_BOOKS") or Path(__file__).resolve().parents[2] / "books")
 
 
-KIT_PAGE = "https://pecuvate.com/kits/finance/"
+KIT_PAGE = "https://pecuvate.com/gears/finance/"
 
 
 def maker_mark():
     """The kit's signature on everything it writes for the director (_config product-signature standard)."""
     v = Path(__file__).resolve().parents[1] / "VERSION"
-    return f"Made with Pecuvate Finance Kit {v.read_text().strip() if v.is_file() else 'dev'}", KIT_PAGE
+    return f"Made with Pecuvate Finance Gear {v.read_text().strip() if v.is_file() else 'dev'}", KIT_PAGE
 
 
 def entity(entity_id):
