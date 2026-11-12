@@ -58,9 +58,9 @@ def find_accounts(number, made_up_to):
 def facts(doc):
     """{(tag, date): value} for undimensioned figures; dimensioned contexts are left out."""
     ctx = {}
-    for cid, body in re.findall(r'<xbrli:context id="([^"]+)">(.*?)</xbrli:context>', doc, re.S):
+    for cid, body in re.findall(r'<(?:[\w-]+:)?context id="([^"]+)">(.*?)</(?:[\w-]+:)?context>', doc, re.S):
         if "dimension=" not in body:
-            d = re.findall(r"<xbrli:(?:instant|endDate)>([^<]+)<", body)
+            d = re.findall(r"<(?:[\w-]+:)?(?:instant|endDate)>([^<]+)<", body)
             ctx[cid] = d[-1].strip() if d else None
     out = {}
     for attrs, val in re.findall(r"<ix:nonFraction([^>]*)>([^<]*)</ix:nonFraction>", doc):
@@ -71,6 +71,15 @@ def facts(doc):
     text = {n: re.sub(r"<[^>]+>", "", v).strip()
             for n, v in re.findall(r'<ix:nonNumeric[^>]*name="([^"]+)"[^>]*>(.*?)</ix:nonNumeric>', doc, re.S)}
     return out, text
+
+
+def local(d):
+    """Key by local name: filing software names the taxonomy prefix (core:, uk-core:, ...) as it likes."""
+    out = {}
+    for k, v in d.items():
+        name = (k[0] if isinstance(k, tuple) else k).split(":")[-1]
+        out.setdefault((name, k[1]) if isinstance(k, tuple) else name, v)
+    return out
 
 
 def main():
@@ -105,10 +114,11 @@ def main():
     vals, text = facts(doc)
     end = made_up_to.isoformat()
 
-    filed_number = text.get("bus:UKCompaniesHouseRegisteredNumber", "").replace(" ", "")
+    lv, lt = local(vals), local(text)
+    filed_number = lt.get("UKCompaniesHouseRegisteredNumber", "").replace(" ", "")
     if filed_number.lstrip("0") != number.lstrip("0"):
         problems.append(f"document is for company '{filed_number}', not {number}")
-    net = vals.get(("core:NetAssetsLiabilities", end), vals.get(("core:Equity", end)))
+    net = lv.get(("NetAssetsLiabilities", end), lv.get(("Equity", end)))
     if net is None:
         problems.append(f"no net assets tagged at {end}: the balance sheet date doesn't match; check the filing")
     sc = ent.get("share_capital") or {}

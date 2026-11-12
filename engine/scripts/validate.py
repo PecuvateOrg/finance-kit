@@ -30,10 +30,11 @@ def chart_codes(entity_id):
 def validate_account(entity_id, acc_dir, ye):
     problems, seen, chain = [], {}, []
     codes = chart_codes(entity_id)
-    if codes is None:
+    year_files = sorted(acc_dir.glob("FY*.csv"))
+    if codes is None and year_files:  # a ledger company keeps its chart in the ledger, and has no year files
         problems.append("no chart of accounts (accounts/account_map.json): set it up first (50_year_end step 2), "
                         "then code every line against it")
-    for f in sorted(acc_dir.glob("FY*.csv")):
+    for f in year_files:
         with f.open(newline="") as fh:
             r = csv.DictReader(fh)
             if r.fieldnames != b.COLUMNS:
@@ -42,6 +43,8 @@ def validate_account(entity_id, acc_dir, ye):
             rows = list(r)
         for i, row in enumerate(rows, 2):
             where = f"{f.name}:{i}"
+            if None in row or None in row.values():  # a cut or over-long row would otherwise be read as blanks
+                problems.append(f"{where} has the wrong number of cells (expected {len(b.COLUMNS)})")
             problems += [f"{where} {e}" for e in b.check_row(row)]
             if row["include_status"] == "included":
                 if codes is not None and row["account_code"] not in codes:
@@ -50,7 +53,7 @@ def validate_account(entity_id, acc_dir, ye):
             if k in seen:
                 problems.append(f"{where} duplicate source_line_key {k} (first at {seen[k]})")
             seen[k] = where
-            if row["txn_date"] and b.fy_label(row["txn_date"], ye) != f.stem:
+            if row["txn_date"] and b._DATE.match(row["txn_date"]) and b.fy_label(row["txn_date"], ye) != f.stem:
                 problems.append(f"{where} dated {row['txn_date']} but filed in {f.stem}")
         chain += [dict(r, _where=f"{f.name}:{i}") for i, r in enumerate(rows, 2)]
     # the chain runs across year files: the first line of a year follows the last line of the one before
