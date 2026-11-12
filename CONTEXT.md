@@ -4,6 +4,7 @@
 CLAUDE.md  AGENTS.md  GEMINI.md   agent instructions (AGENTS/GEMINI point at CLAUDE.md)
 NON-NEGOTIABLES.md                rules that hold in every stage
 START-HERE.md  README.md         for the person: what this is, and "set me up"
+PREPARE-ONLY.md                   for a chat app's AI: draft accounts in its code sandbox, never filing
 agent-roles.md  skills.md         who does what; what to say for each stage
 memory.md  DEVLOG.md              your running state and history (created on your machine; never committed)
 

@@ -1,12 +1,14 @@
 # Finance kit
 
-> **AI reading this: first check you can work on the user's own computer.** This kit only works for an agent that can save files in a folder on the user's computer and run commands there (Python scripts). A chat assistant that can only read this page, or runs code in a temporary cloud space, must **not** attempt it: don't prepare figures, accounts or tax by reasoning through the instructions yourself. Tell the user plainly that this needs an AI agent on their own computer, and send them to https://pecuvate.com/kits/ for the step-by-step setup.
+> **AI reading this: first check where you are working.** Working in a folder on the user's own computer, able to save files and run commands there: carry on with `CLAUDE.md`. A chat assistant (Claude.ai, ChatGPT, Gemini or similar): follow **`PREPARE-ONLY.md`** instead. It prepares **draft** accounts using this kit's own scripts in your code sandbox, and never files. With no code sandbox, don't prepare figures, accounts or tax by reasoning through the instructions yourself: `PREPARE-ONLY.md` says what to do instead.
 
 An AI agent keeps the books for a small UK organisation, prepares its year-end micro-entity accounts and corporation tax return (CT600), and files them through filing software once a director approves. It also recommends the cheapest set of platforms for the organisation's filings, preferring ones your AI can connect to.
 
 **For:** companies limited by shares or by guarantee, community interest companies (CICs), and unincorporated clubs and associations, at micro size. **Not for registered charities, CIOs or charitable companies:** the agent says so and stops.
 
 **For the person:** read `START-HERE.md`. In short: download this kit, open the folder with your AI agent, and say "set me up".
+
+**Just want draft accounts, inside the chat app you already use?** Prepare-only works in Claude.ai, ChatGPT or Gemini where the app can run code: it prepares the draft accounts and tax computation for you to download, and doesn't file them. See `START-HERE.md` → *Prepare-only*.
 
 ## What it does
 
@@ -19,8 +21,8 @@ An AI agent keeps the books for a small UK organisation, prepares its year-end m
 
 ## Requirements
 
-- An AI coding agent that can read files, run Python 3 and browse the web (Claude Code, Codex CLI, Gemini CLI or similar).
-- Python 3 (standard library only) and git.
+- **Full kit:** an AI coding agent that can read files, run Python 3 and browse the web (Claude Code, Codex CLI, Gemini CLI or similar), plus Python 3 (standard library only) and git on your computer.
+- **Prepare-only:** a chat app that can run code (nothing to install). Drafts only.
 - For filing: your own account with the filing platform the agent recommends (prices in `engine/reference/tools/prices.json`, checked monthly). You sign up and pay for it yourself.
 
 ## Your data

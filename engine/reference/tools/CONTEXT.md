@@ -8,6 +8,7 @@ What `engine/scripts/pick_platforms.py` may recommend, and how to use each one. 
 | `filing/` | Filing software: `tinytax.md` (micro accounts + CT600, API/MCP), `simplecompanytax.md` (CIC package ZIP) |
 | `companies_house/` | Filing direct with Companies House: `package_upload.md` (CIC accounts), `confirmation_statement.md` |
 | `payroll/` | `primo.md` (free up to 10 staff, no API). Xero Payroll and Staffology: no guide yet, write one when first recommended |
+| `chat_apps.md` | What each chat app's code sandbox can do (Claude.ai, ChatGPT, Gemini), for `PREPARE-ONLY.md` |
 | `prices.json` | Every platform's price, checked monthly against the vendor page |
 
 **Who the engine is for:** companies limited by shares or guarantee, CICs, and unincorporated clubs or associations that are **not charities**, at micro size. Registered charities, CIOs and charitable companies are out of scope.

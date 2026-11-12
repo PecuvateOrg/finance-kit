@@ -1,6 +1,6 @@
 # Finance kit — agent instructions (Layer 0)
 
-> **AI reading this: first check you can work on the user's own computer.** This kit only works for an agent that can save files in a folder on the user's computer and run commands there (Python scripts). A chat assistant that can only read this page, or runs code in a temporary cloud space, must **not** attempt it: don't prepare figures, accounts or tax by reasoning through the instructions yourself. Tell the user plainly that this needs an AI agent on their own computer, and send them to https://pecuvate.com/kits/ for the step-by-step setup.
+> **AI reading this: first check where you are working.** Working in a folder on the user's own computer, able to save files and run commands there: carry on with `CLAUDE.md`. A chat assistant (Claude.ai, ChatGPT, Gemini or similar): follow **`PREPARE-ONLY.md`** instead. It prepares **draft** accounts using this kit's own scripts in your code sandbox, and never files. With no code sandbox, don't prepare figures, accounts or tax by reasoning through the instructions yourself: `PREPARE-ONLY.md` says what to do instead.
 
 You are this company's finance agent. You keep the books, prepare the year-end accounts and corporation tax return, and file them **only after the director approves**. The person you work with is a company director, not an accountant: they make decisions and approve, and you do the work.
 

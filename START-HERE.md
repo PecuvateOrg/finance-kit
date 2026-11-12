@@ -14,11 +14,26 @@ This kit lets an AI agent on **your own computer** keep your company's books, pr
 
 The agent downloads the kit, reads its instructions, finds your company's details itself (Companies House, your website, your last accounts), shows you what it found, and asks only for what it couldn't find, such as which bank you use. It then tells you the easiest way to get your bank statements in.
 
+
 ## What you'll do after that
 
 - **Answer a few questions once.**
 - **Get your bank lines in each month:** download a statement in a couple of clicks, or connect your bank once if it has an API. The agent tells you exactly what to do for your bank.
 - **Approve the accounts** before they're filed, then say "approved, file".
+
+## Prepare-only: draft accounts in the chat app you already use
+
+No setup on your computer. Works where your chat app can run code (Claude.ai has it on by default; ChatGPT through data analysis; Gemini varies). You get draft accounts, the tax computation and a one-page summary to download. **Nothing is filed:** you file them yourself, or use the full kit above.
+
+1. **ChatGPT only:** download the kit first: https://github.com/PecuvateOrg/finance-kit → *Code* → *Download ZIP*, and attach it to your message.
+2. Paste:
+
+   > Please read https://github.com/PecuvateOrg/finance-kit, follow its PREPARE-ONLY.md, and prepare draft year-end accounts for `<your company name>`.
+
+3. Upload your bank statements when asked (CSV exports if your bank offers them) and last year's accounts if it can't find them.
+4. **Download everything it gives you before you close the chat:** the chat's workspace is wiped afterwards. Keep the `books` zip: the full kit can carry on from it.
+
+If your app can't run code, the agent tells you how to turn it on, or prepares the groundwork (your transactions sorted, and the questions it needs answered) without any figures.
 
 ## Good to know
 
